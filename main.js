@@ -39,8 +39,8 @@ function removeTodo() {
 // SIMULTANEOUS DATA
 function getData() {
   axios.all([
-    axios.get('https://jsonplaceholder.typicode.com/todos>limit=5'),
-    axios.get('https://jsonplaceholder.typicode.com/posts>limit=5')
+    axios.get('https://jsonplaceholder.typicode.com/todos/?_limit=5'),
+    axios.get('https://jsonplaceholder.typicode.com/posts/?_limit=5')
   ])
   .then(axios.spread((todos, posts) => showOutput(posts)))
   .catch(err => console.log(err))
@@ -48,7 +48,19 @@ function getData() {
 
 // CUSTOM HEADERS
 function customHeaders() {
-  console.log('Custom Headers');
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'someToken'
+    }
+  }
+  axios
+    .post('https://jsonplaceholder.typicode.com/todos', {
+      title: 'New Todo',
+      completed: false,
+    }, config)
+    .then(res => showOutput(res))
+    .catch(err => console.log(err))
 }
 
 // TRANSFORMING REQUESTS & RESPONSES
