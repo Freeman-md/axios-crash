@@ -4,7 +4,9 @@ axios.defaults.headers.common['X-Auth-Token'] = 'eyJhbGciOiJIUzI1NiIsInR5cCI6Ikp
 // GET REQUEST
 function getTodos() {
   axios
-    .get('https://jsonplaceholder.typicode.com/todos?_limit=5')
+    .get('https://jsonplaceholder.typicode.com/todos?_limit=5', {
+      timeout: 5000
+    })
     .then(res => showOutput(res))
     .catch(err => console.log(err))
 }
